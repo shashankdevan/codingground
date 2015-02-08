@@ -16,6 +16,7 @@ RandomisedBST :: RandomisedBST(){
     r = NULL;
     height = 0;
     randomisedHeight = 0;
+    srand(123456789);
 }
     
 int RandomisedBST :: getSize(node* p){
@@ -78,18 +79,22 @@ node * RandomisedBST :: BSTInsert(node*p, int k){
         p->right = BSTInsert(p->right,k);
     return p; 
 }
-
 void RandomisedBST :: randomisedInsert(int k){
     root = randomisedInsert(root,k);
 }
 
+int RandomisedBST :: nextInt(){
+    if(root == NULL){
+        return (0 + 1);
+    }
+    return rand() % getSize(root) + 1;
+}
 node* RandomisedBST :: randomisedInsert(node* p, int k){
     if(!p) {
         p = new node(k);
         return p;
     }
-    srand(123456789);
-    int r = rand() % (p->size) + 1;
+    int r = nextInt();
     if( r == p->size ) 
         return insertAtRoot(p,k); 
     if( p->key>k ) 
@@ -130,4 +135,4 @@ int RandomisedBST :: levelOrderPrint(node* p){
     }
     level--;
     return level;
-        }
+}
